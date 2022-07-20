@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(GridLayoutGroup))]
 public class Field : MonoBehaviour
 {
     [Tooltip("更新の時間")]
@@ -18,6 +20,8 @@ public class Field : MonoBehaviour
     [SerializeField] int _minEngenderCount = 3;
     [Tooltip("新たに生まれる最小の数")]
     [SerializeField] int _maxEngenderCount = 3;
+    [Tooltip("グリッドレイアウト")]
+    [SerializeField] GridLayoutGroup _gl;
 
     /// <summary>フィールド</summary>
     Cell[,] _field;
@@ -234,6 +238,13 @@ public class Field : MonoBehaviour
     /// </summary>
     public void CreateField(int row, int col, Cell cellPrefab)
     {
+        if (!_gl)
+        {
+            _gl = GetComponent<GridLayoutGroup>();
+            _gl.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            _gl.childAlignment = TextAnchor.MiddleCenter;
+        }
+        _gl.constraintCount = col;
         _field = new Cell[col, row];
         for (int i = 0; i < col; i++)
         {
