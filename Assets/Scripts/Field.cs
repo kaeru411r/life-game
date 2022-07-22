@@ -52,22 +52,22 @@ public class Field : MonoBehaviour
 
     private void OnValidate()
     {
-        if(_distance <= 0)
+        if (_distance <= 0)
         {
             _distance = 1;
             Debug.LogWarning($"{nameof(_distance)}が0以下だったため、1に設定しました");
         }
-        if(_minLiveCount <= 0)
+        if (_minLiveCount <= 0)
         {
             _minLiveCount = 1;
             Debug.LogWarning($"{nameof(_minLiveCount)}が0以下だったため、1に設定しました");
         }
-        else if(_minLiveCount > AroundCellCount(_distance))
+        else if (_minLiveCount > AroundCellCount(_distance))
         {
             _minLiveCount = AroundCellCount(_distance);
             Debug.LogWarning($"{nameof(_minLiveCount)}が周囲のセルの数{AroundCellCount(_distance)}を超過していたため、{_minLiveCount}に設定しました");
         }
-        if(_maxEngenderCount < _minEngenderCount)
+        if (_maxEngenderCount < _minEngenderCount)
         {
             _maxEngenderCount = _minEngenderCount;
             Debug.LogWarning($"{nameof(_maxEngenderCount)}が{nameof(_minEngenderCount)}の値{_minEngenderCount}未満だったため、{_minEngenderCount}に設定しました");
@@ -161,7 +161,7 @@ public class Field : MonoBehaviour
         }
         else
         {
-            if(liveCount >= _minEngenderCount && liveCount <= _maxEngenderCount)
+            if (liveCount >= _minEngenderCount && liveCount <= _maxEngenderCount)
             {
                 cell.Engender();
             }
@@ -206,7 +206,7 @@ public class Field : MonoBehaviour
     {
         int count = 0;
         int side = 1;
-        for(int i = 0; i < _distance; i++)
+        for (int i = 0; i < _distance; i++)
         {
             count += side * 4 + 4;
             side += 2;
@@ -253,9 +253,9 @@ public class Field : MonoBehaviour
         _field = new Cell[col, row];
         int a = 0;
         int b = 0;
-        for (int i = 0; i < col; i++)
+        for (int k = 0; k < row; k++)
         {
-            for (int k = 0; k < row; k++)
+            for (int i = 0; i < col; i++)
             {
                 Cell cell = Instantiate(cellPrefab, transform);
                 _field[i, k] = cell;
