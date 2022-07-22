@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(GridLayoutGroup))]
+[RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
 public class Field : MonoBehaviour
 {
     [Tooltip("更新の時間")]
@@ -25,6 +25,8 @@ public class Field : MonoBehaviour
 
     /// <summary>フィールド</summary>
     Cell[,] _field;
+    /// <summary>フィールドのRectTransform</summary>
+    RectTransform _rectTransform;
 
     public Cell[,] Map
     {
@@ -241,11 +243,16 @@ public class Field : MonoBehaviour
         if (!_gl)
         {
             _gl = GetComponent<GridLayoutGroup>();
-            _gl.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            _rectTransform = GetComponent<RectTransform>();
+            _gl.constraint = GridLayoutGroup.Constraint.FixedRowCount;
             _gl.childAlignment = TextAnchor.MiddleCenter;
         }
-        _gl.constraintCount = col;
+        _gl.constraintCount = row;
+        float size = Mathf.Min(_rectTransform.rect.width / col, _rectTransform.rect.height / row);
+        _gl.cellSize = new Vector2(size, size);
         _field = new Cell[col, row];
+        int a = 0;
+        int b = 0;
         for (int i = 0; i < col; i++)
         {
             for (int k = 0; k < row; k++)
@@ -253,6 +260,17 @@ public class Field : MonoBehaviour
                 Cell cell = Instantiate(cellPrefab, transform);
                 _field[i, k] = cell;
                 cell.SetUp();
+                //if(a >= b)
+                //{
+                //    cell.Engender();
+                //    a = 0;
+                //    b++;
+                //}
+                //else
+                //{
+                //    cell.Death();
+                //    a++;
+                //}
             }
         }
         StartCoroutine(AutoUpdate());

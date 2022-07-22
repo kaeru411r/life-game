@@ -428,6 +428,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _field: {fileID: 133545867}
   _cellPrefab: {fileID: 8516233386601504089, guid: 9fe52c767dd6a314983397cd9c978884, type: 3}
+  _row: 10
+  _col: 10
 --- !u!4 &1302044865
 Transform:
   m_ObjectHideFlags: 0

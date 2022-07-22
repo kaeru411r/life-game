@@ -12,6 +12,8 @@ public class Cell : MonoBehaviour
     [SerializeField] Color _liveColor = Color.green;
     [Tooltip("死んでいるセルの色")]
     [SerializeField] Color _deadColor = Color.white;
+    [Tooltip("セルの大きさ")]
+    [SerializeField] float _size = 100;
 
     /// <summary>セルのイメージ</summary>
     Image _image;
@@ -51,7 +53,15 @@ public class Cell : MonoBehaviour
     {
         _isAlive = true;
         _image = GetComponent<Image>();
-        _state = CellState.Dead;
+        //if (Random.value < 0.7)
+        //{
+            _state = CellState.Dead;
+        //}
+        //else
+        //{
+        //    _state = CellState.Live;
+        //}
+        Transcription();
     }
 
     /// <summary>
